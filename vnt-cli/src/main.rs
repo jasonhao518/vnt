@@ -24,12 +24,6 @@ fn main() {
     main0(config, cmd)
 }
 fn main0(config: Config, _show_cmd: bool) {
-    if !root_check::is_app_elevated() {
-        println!("Please run it with administrator or root privileges");
-        #[cfg(any(target_os = "linux", target_os = "macos"))]
-        sudo::escalate_if_needed().unwrap();
-        return;
-    }
     #[cfg(feature = "port_mapping")]
     for (is_tcp, addr, dest) in config.port_mapping_list.iter() {
         if *is_tcp {
